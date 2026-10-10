@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me</title>
+    <style>
+        :root {
+            --bg-light: #f1f1f1;
+            --panel-gray: #b7b2b0;
+            --text-dark: #2d2d2d;
+            --button-dark: #2b2b2b;
+            --button-text: #f5f5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            height: 100%;
+            font-family: Georgia, "Times New Roman", serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg-light);
+        }
+
+        .project-showcase {
+            background: #b9dfe9;
+            padding: 18px 40px 56px;
+        }
+
+        .showcase-inner {
+            max-width: 1260px;
+            margin: 0 auto;
+        }
+
+        .project-header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: min(100%, 1040px);
+            margin: 0 auto 32px;
+            padding: 16px 30px;
+            border-radius: 42px;
+            background: #0c4f9d;
+            box-shadow: inset 0 0 0 2px rgba(15, 32, 61, 0.5);
+        }
+
+        .project-badge {
+            position: absolute;
+            left: 28px;
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: #0c4f9d;
+            border: 4px solid #1f2d3b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 0 4px rgba(255,255,255,0.08);
+        }
+
+        .project-badge::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #1f2d3b;
+            border-top: none;
+            border-radius: 50%;
+            transform: rotate(12deg);
+        }
+
+        .project-badge::after {
+            content: "";
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border: 5px solid #1f2d3b;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .project-header h3 {
+            margin: 0;
+            color: #f5f7f9;
+            font-size: clamp(2.8rem, 4.6vw, 5rem);
+            letter-spacing: -0.06em;
+            line-height: 1.1;
+            font-weight: 700;
+            text-align: center;
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 2.3fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .game-card {
+            min-height: 340px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(26, 34, 39, 0.1);
+            border-radius: 24px;
+            background: #fff;
+        }
+
+        .game-card iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 340px;
+            border: 0;
+            background: transparent;
+        }
+
+        .game-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 340px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .profile-card img {
+            height: 270px;
+            min-height: 270px;
+        }
+
+        .website-preview img {
+            object-position: left center;
+        }
+
+        .dash-preview img {
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .project-content {
+            min-height: 340px;
+            padding: 18px 24px 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(255,255,255,0.3);
+            border: 2px solid rgba(26, 34, 39, 0.08);
+            border-radius: 24px;
+        }
+
+        .project-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .project-name,
+        .project-tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 56px;
+            background: #5d897b;
+            border-radius: 26px;
+        }
+
+        .project-name {
+            flex: 1;
+            padding: 10px 18px;
+            color: #292f33;
+            font-size: clamp(1.5rem, 2vw, 2.6rem);
+            letter-spacing: -0.04em;
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        .project-tag {
+            width: 124px;
+            flex: 0 0 124px;
+            padding: 8px;
+            color: #292f33;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+            text-align: center;
+        }
+
+        .project-tag svg {
+            width: 64px;
+            height: 64px;
+            fill: none;
+            stroke: #101719;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .project-content p {
+            margin: 0;
+            min-height: 228px;
+            padding: 22px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 24px;
+            text-align: center;
+            font-size: clamp(1rem, 1.35vw, 1.5rem);
+            line-height: 1.45;
+            color: rgba(35,35,35,0.9);
+        }
+
+        .profile-caption {
+            padding: 16px 14px 18px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .profile-caption h1 {
+            margin: 0 0 6px;
+            font-size: clamp(1.3rem, 1.8vw, 2rem);
+            line-height: 1.2;
+        }
+
+        .profile-caption .role {
+            margin: 0;
+            color: rgba(35,35,35,0.75);
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .about-copy {
+            flex: 1;
+            margin-bottom: 12px;
+            padding: 22px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 24px;
+            text-align: center;
+            font-size: clamp(1rem, 1.35vw, 1.5rem);
+            line-height: 1.45;
+            color: rgba(35,35,35,0.9);
+        }
+
+        .email-button {
+            align-self: center;
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 24px;
+            background: #5d897b;
+            color: #17211d;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .email-button:hover {
+            opacity: 0.85;
+        }
+
+        .contact-section {
+            min-height: 511px;
+            padding: 67px 10px;
+            background: #814cf4;
+        }
+
+        .contact-inner {
+            max-width: 1260px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 246px) minmax(0, 1fr);
+            align-items: start;
+            gap: 12px;
+        }
+
+        .contact-image {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .contact-links {
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #111;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-links a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .contact-email {
+            font-size: clamp(1.2rem, 2.7vw, 1.9rem);
+            font-weight: 700;
+        }
+
+        .contact-link {
+            font-size: clamp(1rem, 2.1vw, 1.35rem);
+            line-height: 1.2;
+        }
+
+        @media (max-width: 900px) {
+            .project-showcase {
+                padding: 18px 18px 48px;
+            }
+
+            .project-header {
+                width: 100%;
+                padding-left: 70px;
+            }
+
+            .project-badge {
+                left: 16px;
+                width: 64px;
+                height: 64px;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-title-row {
+                flex-direction: column;
+            }
+
+            .project-tag {
+                width: 100%;
+                flex-basis: auto;
+            }
+
+            .project-content p,
+            .about-copy {
+                font-size: 1.1rem;
+            }
+
+            .contact-section {
+                min-height: auto;
+                padding: 32px 18px;
+            }
+
+            .contact-inner {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 20px;
+            }
+
+            .contact-image {
+                width: min(100%, 246px);
+            }
+
+            .contact-links {
+                padding-top: 0;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <section class="project-showcase">
+        <div class="showcase-inner">
+            <div class="project-header">
+                <div class="project-badge" aria-hidden="true"></div>
+                <h3>About Me</h3>
+            </div>
+
+            <div class="showcase-grid">
+                <div class="game-card profile-card">
+                    <img src="image.png" alt="Fadhil Oyewole" />
+                    <div class="profile-caption">
+                        <h1>Fadhil Oyewole (He)</h1>
+                        <p class="role">Game developer</p>
+                    </div>
+                </div>
+
+                <div class="project-content">
+                    <div class="project-title-row">
+                        <div class="project-name">About Me</div>
+                        <div class="project-tag">PROFILE</div>
+                    </div>
+                    <p class="about-copy">
+                        My name is Fadhil I started with making scratch game which didnt get that many players but i was
+                        satisfied enough I wanted to do a collab but school brought that down then I started games on kodu even
+                        though I didnt have an account at that time it was still fun anyway a few months past and I moved on to canva
+                        making websites and all with github I have tried and make a roblox game but it takes alot of experience so is
+                        you see this I was ten years old when it all started.
+                    </p>
+                    <a class="email-button" href="mailto:you@example.com">Email me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-showcase">
+        <div class="showcase-inner">
+            <div class="project-header">
+                <div class="project-badge" aria-hidden="true"></div>
+                <h3>Project Showcase</h3>
+            </div>
+
+            <div class="showcase-grid">
+                <div class="game-card" aria-label="Catch a Apple game preview">
+                    <iframe
+                        src="https://scratch.mit.edu/projects/1207558344/embed"
+                        allowtransparency="true"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        scrolling="no"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="project-content">
+                    <div class="project-title-row">
+                        <div class="project-name">Catch a Apple</div>
+                        <div class="project-tag">SCRATCH</div>
+                    </div>
+
+                    <p>
+                        So this is my second ever project on scratch Catch a Apple is just a game i got from an old scratcher called tech_wibtz and by the way this project might of have not that much program but at-least I tried
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-showcase" style="padding-top: 0;">
+        <div class="showcase-inner">
+            <div class="showcase-grid">
+                <div class="game-card" aria-label="Catch the Ball game preview">
+                    <iframe src="https://scratch.mit.edu/projects/1209556803/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                </div>
+
+                <div class="project-content">
+                    <div class="project-title-row">
+                        <div class="project-name">CATCH THE BALL</div>
+                        <div class="project-tag">SCRATCH</div>
+                    </div>
+
+                    <p>
+                        So this is my first ever project on scratch and I dont really have anything say about this itll say this project was based on a club i did in that school and its called coding class but the crazy part is the computer i made that game on a that broke basically so the computer has the only copy of the game.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-showcase" style="padding-top: 0;">
+        <div class="showcase-inner">
+            <div class="showcase-grid">
+                <div class="game-card" aria-label="Catch the Ball game preview">
+                    <iframe
+                        src="https://scratch.mit.edu/projects/1270455754/embed"
+                        allowtransparency="true"
+                        width="485"
+                        height="402"
+                        frameborder="0"
+                        scrolling="no"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="project-content">
+                    <div class="project-title-row">
+                        <div class="project-name">Tennis</div>
+                        <div class="project-tag">SCRATCH</div>
+                    </div>
+
+                    <p>
+                        This game has a glitch that makes you get a lot of points and i dont know how to fix it so i left the bug because i dont know how to fix them lol bye.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-showcase">
+        <div class="showcase-inner">
+            <div class="project-header">
+                <div class="project-badge" aria-hidden="true"></div>
+                <h3>Website Showcase</h3>
+            </div>
+
+            <div class="showcase-grid">
+                <div class="game-card website-preview" aria-label="Manchester United website preview">
+                    <img src="website-showcase-photo.png" alt="Screenshot of the Manchester United website" />
+                </div>
+
+                <div class="project-content">
+                    <div class="project-title-row">
+                        <div class="project-name">MANU</div>
+                        <div class="project-tag" aria-hidden="true">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M20 18 44 42M20 46l24-24" />
+                                <circle cx="18" cy="18" r="7" />
+                                <circle cx="46" cy="18" r="7" />
+                                <circle cx="18" cy="46" r="7" />
+                                <circle cx="46" cy="46" r="7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p>
+                        MANU ON TOP so by that phrase you think im a MANU fan yea i am and I made a little dummy version of the website i just hope i dont get sued because im not selling nothing to anyone
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-showcase" style="padding-top: 0;">
+        <div class="showcase-inner">
+            <div class="showcase-grid">
+                <div class="game-card dash-preview" aria-label="Dash website preview">
+                    <img src="dash-website-preview.png" alt="Screenshot of the Dash website" />
+                </div>
+
+                <div class="project-content">
+                    <div class="project-title-row">
+                        <div class="project-name">Dash</div>
+                        <div class="project-tag" aria-hidden="true">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M20 18 44 42M20 46l24-24" />
+                                <circle cx="18" cy="18" r="7" />
+                                <circle cx="46" cy="18" r="7" />
+                                <circle cx="18" cy="46" r="7" />
+                                <circle cx="46" cy="46" r="7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p>
+                        So this website is about my second fav youtuber because he makes funny videos about trolling his friends and baby dash so i thought why not make a website (SECOND FAV YOUTUBER) even though im more like a tech fan but at the time i couldn't find good pic because they were like 3-4 years old i think.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" aria-label="Contact and profile links">
+        <div class="contact-inner">
+            <img class="contact-image" src="image copy 10.png" alt="Cartoon profile portrait" />
+            <div class="contact-links">
+                <a class="contact-email" href="mailto:foeywole16@gmail.com">Email=foeywole16@gmail.com</a>
+                <div class="contact-link">
+                    <strong>Manu website=</strong>
+                    <a href="https://fadhil7925.github.io/Man-United/#home">https://fadhil7925.github.io/Man-United/#home</a>
+                </div>
+                <div class="contact-link">
+                    <strong>Dash website=</strong>
+                    <a href="https://fadhil7925.github.io/Dash-yt/">https://fadhil7925.github.io/Dash-yt/</a>
+                </div>
+                <div class="contact-link">
+                    <strong>Scratch profile=</strong>
+                    <a href="https://scratch.mit.edu/users/nateletwin20/">https://scratch.mit.edu/users/nateletwin20/</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
