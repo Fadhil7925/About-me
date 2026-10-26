@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fadhil7925.github.io/About-me/sitemap.xml
